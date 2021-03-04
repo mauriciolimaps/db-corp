@@ -24,14 +24,14 @@ namespace DBCorp
 
 	class VendingMachineBase
 	{
-		protected List<Product> products;
+		protected List<Product> mProducts;
 
 		public Payment OrderExchange(int productIndex, Payment payment)
 		{
-			if (productIndex > this.products.Count)
+			if (productIndex > this.mProducts.Count)
 				throw new Exception("Invalide product index");
 
-			Decimal Price = this.products[productIndex - 1].Price;
+			Decimal Price = this.mProducts[productIndex - 1].Price;
 
 			List<ICoin> rejected = payment.Remove( value => (value is Coin_01) || (value is Coin_05) );
 
@@ -40,11 +40,6 @@ namespace DBCorp
 			{
 				exchange.Add(coin);
 			}
-
-
-			double x = Convert.ToDouble(payment.Total);
-			Console.WriteLine("Price      {0,4:C2}", Price);
-			Console.WriteLine("Disponivel {0,5:C2}", x);
 
 			if (Price > payment.Total)
 			{
@@ -81,18 +76,23 @@ namespace DBCorp
 
 		protected VendingMachineBase()
 		{
-			this.products = new List<Product>();
+			this.mProducts = new List<Product>();
 		}
 	}
 
 
 	class VendingMachineTemplate : VendingMachineBase
 	{
+		public List<Product> Products 
+		{ 
+			get { return mProducts;  } 
+		}
+
 		public VendingMachineTemplate()
 		{
-			products.Add( new Product(Name: "Cappuccino",     Price: 3.50m ));
-			products.Add( new Product(Name: "Mocha",          Price: 4.00m ));
-			products.Add( new Product(Name: "Café com leite", Price: 3.00m ));
+			mProducts.Add( new Product(Name: "Cappuccino",     Price: 3.50m ));
+			mProducts.Add( new Product(Name: "Mocha",          Price: 4.00m ));
+			mProducts.Add( new Product(Name: "Café com leite", Price: 3.00m ));
 		}
 	}
 
