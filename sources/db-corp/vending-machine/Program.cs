@@ -1,10 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+
 
 namespace DBCorp
 {
-	class Program
+	class Service
 	{
+		private static VendingMachineTemplate mVendingMachine = null;
+
+		static public VendingMachineTemplate VendingMachine 
+		{
+			get
+			{
+				return mVendingMachine ?? new VendingMachineTemplate();
+			}
+		}
+
 		static void Usage()
 		{
 			string[] usage = new String[] {
@@ -48,64 +58,131 @@ namespace DBCorp
 			}
 		}
 
-		static void Main(string[] args)
+
+		static void DecodeProducts(String[] arguments)
 		{
-			Usage();
-	
-			var VendingMachine = new VendingMachineTemplate();
+			int index;
 
-			
+			Console.WriteLine("DBCorp Vending Machine - Products List");
+			Console.WriteLine();
 
-
-			var payment = new Payment();
-			payment.Add( new Coin_01() );
-			//payment.Add( Coin.coin_10  );
-			payment.Add( new Coin_05() );
-			payment.Add( new Coin_05() );
-			payment.Add( new Coin_01() );
-			//payment.Add( Coin.coin_100 );
-			//payment.Add( Coin.coin_01  );
-			payment.Add( new Coin_25()  );
-			payment.Add( new Coin_25() );
-
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25()); 
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25()); 
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25()); 
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-			payment.Add(new Coin_25());
-
-
-
-
-			Decimal Payed = payment.Total;
-
-			var exchange = VendingMachine.OrderExchange(1, payment);
-			if (payment.Total == 0)
+			index = 0;
+			foreach (Product product in VendingMachine.Products)
 			{
-				Console.WriteLine("All payment is devolved because removing rejected coins it is not enough");
+				Console.WriteLine("{0,3} - {1}", ++index, product.Name);
 			}
-
-			Console.WriteLine("Payment  {0,8:C2}", Payed);
-			Console.WriteLine("Exchange {0,8:C2}", exchange.Total);
+		}
 
 
+		static void DecodeOrder(String[] arguments)
+		{
+			int productIndex;
+
+			try
+			{
+				if (arguments.Length < 2)
+					throw new Exception("The product index should be the second argument. It should be a number obtained in the products list");
+
+				productIndex = Int32.Parse(arguments[1]);
+				Console.WriteLine("Product index is {0}", productIndex);
+
+				Payment payment = new Payment();
+				for (int index = 2; index < arguments.Length; index++)
+				{
+					string[] parts = arguments[index].Split(':');
+					if (parts.Length != 2)
+						throw new Exception(String.Format("Wrong format on parameter {0} : '{1}'" , index, arguments[index]));
+
+					int kind = Int32.Parse(parts[0]);
+					try
+					{
+						for (int input = 0; input < Int32.Parse(parts[1]); input++)
+						{
+							switch (kind)
+							{
+								case 1:
+									payment.Add(new Coin_01());
+									break;
+
+								case 5:
+									payment.Add(new Coin_05());
+									break;
+
+								case 25:
+									payment.Add(new Coin_25());
+									break;
+
+								default:
+									throw new Exception();
+									break;
+							}
+						}
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine("Invalid prefix {0} in parameter '{1}'", kind, arguments[index]);
+					}
+
+				}
+
+				Decimal Payed = payment.Total;
+
+				var exchange = VendingMachine.OrderExchange(1, payment);
+				if (payment.Total == 0)
+				{
+					Console.WriteLine("All payment is devolved because removing rejected coins it is not enough");
+				}
+
+				Console.WriteLine("Product   : '{0}'",       VendingMachine.Products[productIndex].Name);
+				Console.WriteLine("Price     :  {0,8:C2}",   VendingMachine.Products[productIndex].Price);
+				Console.WriteLine("Payment   :  {0,8:C2}",   Payed);
+				Console.WriteLine("Exchange  :  {0,8:C2}",   exchange.Total);
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+		}
 
 
+		static int DecodeArguments(String[] arguments)
+		{
+			switch (arguments[0])
+			{
+				case "-h":
+				case "--help":
+					Usage();
+					return 0;
+
+				case "-p":
+				case "--products":
+					DecodeProducts(arguments);
+					return 0;
+
+				case "-o":
+				case "--order":
+					DecodeOrder(arguments);
+					return 0;
+
+				default:
+					Usage();
+					return 0;
+			}
+		}
 
 
-			Console.WriteLine(String.Join('\n', exchange));
-
+		static int Main(string[] arguments)
+		{
+			try
+			{
+				return DecodeArguments(arguments);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Error: {0}", e.Message);
+				return 1;
+			}
+			
 		}
 	}
 }
