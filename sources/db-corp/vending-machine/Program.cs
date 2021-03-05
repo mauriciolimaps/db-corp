@@ -83,7 +83,7 @@ namespace DBCorp
 				if (arguments.Length < 2)
 					throw new Exception("The product index should be the second argument. It should be a number obtained in the products list");
 
-				productIndex = Int32.Parse(arguments[1]);
+				productIndex = Int32.Parse(arguments[1]) - 1;
 				Console.WriteLine("Product index is {0}", productIndex);
 
 				Payment payment = new Payment();
@@ -118,7 +118,7 @@ namespace DBCorp
 							}
 						}
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						Console.WriteLine("Invalid prefix {0} in parameter '{1}'", kind, arguments[index]);
 					}
@@ -126,17 +126,18 @@ namespace DBCorp
 				}
 
 				Decimal Payed = payment.Total;
+				String PayedDescription = payment.Description;
 
-				var exchange = VendingMachine.OrderExchange(1, payment);
+				var exchange = VendingMachine.OrderExchange(productIndex, payment);
 				if (payment.Total == 0)
 				{
 					Console.WriteLine("All payment is devolved because removing rejected coins it is not enough");
 				}
 
-				Console.WriteLine("Product   : '{0}'",       VendingMachine.Products[productIndex].Name);
-				Console.WriteLine("Price     :  {0,8:C2}",   VendingMachine.Products[productIndex].Price);
-				Console.WriteLine("Payment   :  {0,8:C2}",   Payed);
-				Console.WriteLine("Exchange  :  {0,8:C2}",   exchange.Total);
+				Console.WriteLine("Product   : '{0}'",            VendingMachine.Products[productIndex].Name);
+				Console.WriteLine("Price     :  {0,8:C2}",        VendingMachine.Products[productIndex].Price);
+				Console.WriteLine("Payment   :  {0,8:C2} ({1})",  Payed, PayedDescription);
+				Console.WriteLine("Exchange  :  {0,8:C2} ({1})",  exchange.Total, exchange.Description);
 			}
 			catch (Exception e)
 			{

@@ -31,7 +31,7 @@ namespace DBCorp
 			if (productIndex > this.mProducts.Count)
 				throw new Exception("Invalide product index");
 
-			Decimal Price = this.mProducts[productIndex - 1].Price;
+			Decimal Price = this.mProducts[productIndex].Price;
 
 			List<ICoin> rejected = payment.Remove( value => (value is Coin_01) || (value is Coin_05) );
 
@@ -53,19 +53,19 @@ namespace DBCorp
 			}
 
 			Decimal remainingValue = payment.Total - Price;
-			while ( remainingValue > 0.25m )
+			while ( remainingValue >= 0.25m )
 			{
 				exchange.Add( new Coin_25() );
 				remainingValue -= 0.25m;
 			}
 
-			while (remainingValue > 0.05m)
+			while (remainingValue >= 0.05m)
 			{
 				exchange.Add(new Coin_05());
 				remainingValue -= 0.05m;
 			}
 
-			while (remainingValue > 0.01m)
+			while (remainingValue >= 0.01m)
 			{
 				exchange.Add(new Coin_01());
 				remainingValue -= 0.01m;
