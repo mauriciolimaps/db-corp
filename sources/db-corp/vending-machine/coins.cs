@@ -11,7 +11,7 @@ namespace DBCorp
 
 		public Coin_01()
 		{
-			this.Name  = "um centavo";
+			this.Name  = "one cent";
 			this.Value =  0.01m;
 		}
 	}
@@ -24,7 +24,7 @@ namespace DBCorp
 
 		public Coin_05()
 		{
-			this.Name  = "cinco centavos";
+			this.Name  = "five cents";
 			this.Value = 0.05m;
 		}
 	}
@@ -37,7 +37,7 @@ namespace DBCorp
 
 		public Coin_25()
 		{
-			this.Name  = "vinte e cinco centavos";
+			this.Name  = "25 cents";
 			this.Value = 0.25m;
 		}
 	}
