@@ -3,12 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>vending_machine</RootNamespace>
-    <AssemblyName>dbcvm</AssemblyName>
+    <RootNamespace>DBCorp</RootNamespace>
+    <AssemblyName>dbc-vm</AssemblyName>
+    <PackageId>dbc-vm</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..</OutputPath>
+    <OutputPath>..\..\..\bin</OutputPath>
   </PropertyGroup>
 
 </Project>
