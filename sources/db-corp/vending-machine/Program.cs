@@ -70,7 +70,7 @@ namespace DBCorp
 			index = 0;
 			foreach (Product product in VendingMachine.Products)
 			{
-				Console.WriteLine("{0,3} - {1,-13} {2,7}", ++index, product.Name, product.Price);
+				Console.WriteLine("{0,3} - {1,-17} {2,7}", ++index, product.Name, product.Price);
 			}
 			Console.WriteLine();
 		}
@@ -141,7 +141,7 @@ namespace DBCorp
 				var exchange = VendingMachine.OrderExchange(productIndex, payment);
 				if (payment.Total == 0)
 				{
-					Console.WriteLine("All payment is devolved because removing rejected coins it is not enough");
+					Console.WriteLine("All payment is returned because removing rejected coins it is not enough");
 				}
 
 				Console.WriteLine("Product   : '{0}'",            VendingMachine.Products[productIndex].Name);
