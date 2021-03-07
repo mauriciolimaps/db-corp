@@ -2,7 +2,7 @@
 
 Evaluation project for **DB Corp** Company
 
-- [Specification](documents/DBCorp%20/%20Teste%20de%20recrutamento.pdf)
+- [Specification](documents/DBCorp%20-%20Teste%20de%20recrutamento.pdf)
 
 - [References used](documents/references.md)
   
