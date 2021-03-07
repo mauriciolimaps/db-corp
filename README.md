@@ -51,12 +51,23 @@ Ordering the item with index 2 using only 50 cent coins, BUT in NOT enough balan
 
  ```
 
-    > ./dbc-vm --order 2 100:5
+    > ./dbc-vm --order 2 50:5
 
  ```
  ![Image 4](screenshots/image-04.png)
 
- 
+
+Ordering the item with index 3 using 50 cent coins, and some 5 cent and 1 cent coins that will be returned following the rules.
+
+ ```
+
+    > ./dbc-vm --order 3 50:8  5:10  1:3
+
+ ```
+ ![Image 5](screenshots/image-05.png)
+
+
+
  
  
 
