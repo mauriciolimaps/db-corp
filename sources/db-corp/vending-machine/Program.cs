@@ -49,6 +49,7 @@ namespace DBCorp
 				"",
 				"               The total sum is 4,93",
 				"",
+				"",
 				""
 			};
 
@@ -69,8 +70,9 @@ namespace DBCorp
 			index = 0;
 			foreach (Product product in VendingMachine.Products)
 			{
-				Console.WriteLine("{0,3} - {1}", ++index, product.Name);
+				Console.WriteLine("{0,3} - {1,-13} {2,7}", ++index, product.Name, product.Price);
 			}
+			Console.WriteLine();
 		}
 
 
@@ -112,6 +114,14 @@ namespace DBCorp
 									payment.Add(new Coin_25());
 									break;
 
+								case 50:
+									payment.Add(new Coin_50());
+									break;
+
+								case 100:
+									payment.Add(new Coin_100());
+									break;
+
 								default:
 									throw new Exception();
 									break;
@@ -138,6 +148,7 @@ namespace DBCorp
 				Console.WriteLine("Price     :  {0,8:C2}",        VendingMachine.Products[productIndex].Price);
 				Console.WriteLine("Payment   :  {0,8:C2} ({1})",  Payed, PayedDescription);
 				Console.WriteLine("Exchange  :  {0,8:C2} ({1})",  exchange.Total, exchange.Description);
+				Console.WriteLine();
 			}
 			catch (Exception e)
 			{

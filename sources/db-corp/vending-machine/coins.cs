@@ -19,8 +19,8 @@ namespace DBCorp
 
 	class Coin_05 : ICoin
 	{
-		public string Name		{ get; private set; }
-		public Decimal Value	{ get; private set; }
+		public string	Name	{ get; private set; }
+		public Decimal	Value	{ get; private set; }
 
 		public Coin_05()
 		{
@@ -32,13 +32,40 @@ namespace DBCorp
 
 	class Coin_25 : ICoin
 	{
-		public string Name { get; private set; }
-		public Decimal Value { get; private set; }
+		public string	Name	{ get; private set; }
+		public Decimal	Value	{ get; private set; }
 
 		public Coin_25()
 		{
 			this.Name  = "25 cents";
-			this.Value = 0.25m;
+			this.Value =  0.25m;
+		}
+	}
+
+
+	class Coin_50 : ICoin
+	{
+		public string	Name	{ get; private set; }
+		public Decimal	Value	{ get; private set; }
+
+		public Coin_50()
+		{
+			this.Name  = "50 cents";
+			this.Value =  0.50m;
+		}
+	}
+
+
+	class Coin_100 : ICoin
+	{
+		public string	Name	{ get; private set; }
+		public Decimal	Value	{ get; private set; }
+
+		public Coin_100()
+		{
+			this.Name  = "one real";
+			this.Value =  1.00m;
 		}
 	}
 }
+

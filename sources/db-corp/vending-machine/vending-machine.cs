@@ -53,6 +53,18 @@ namespace DBCorp
 			}
 
 			Decimal remainingValue = payment.Total - Price;
+			while (remainingValue >= 1.00m)
+			{
+				exchange.Add(new Coin_100());
+				remainingValue -= 1.00m;
+			}
+
+			while (remainingValue >= 0.50m)
+			{
+				exchange.Add(new Coin_50());
+				remainingValue -= 0.50m;
+			}
+
 			while ( remainingValue >= 0.25m )
 			{
 				exchange.Add( new Coin_25() );

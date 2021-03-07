@@ -73,9 +73,18 @@ namespace DBCorp
 						case 25:
 							item = new Coin_25();
 							break;
+
+						case 50:
+							item = new Coin_50();
+							break;
+
+						case 100:
+							item = new Coin_100();
+							break;
+
 					}
 					if (item != null)
-						result.Add(String.Format("{0} coins of {1}", mapped.Value, item.Name));
+						result.Add(String.Format("{0} coin{1} of {2}", mapped.Value, mapped.Value > 1 ? "s" : "", item.Name));
 				}
 
 				return String.Join(", ", result);
