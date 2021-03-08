@@ -86,7 +86,7 @@ namespace DBCorp
 					throw new Exception("The product index should be the second argument. It should be a number obtained in the products list");
 
 				productIndex = Int32.Parse(arguments[1]) - 1;
-				Console.WriteLine("Product index is {0}", productIndex);
+				Console.WriteLine("Product index is {0}", productIndex + 1);
 
 				Payment payment = new Payment();
 				for (int index = 2; index < arguments.Length; index++)
@@ -132,7 +132,6 @@ namespace DBCorp
 					{
 						Console.WriteLine("Invalid prefix {0} in parameter '{1}'", kind, arguments[index]);
 					}
-
 				}
 
 				Decimal Payed = payment.Total;
