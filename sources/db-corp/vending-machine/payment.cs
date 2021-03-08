@@ -13,6 +13,12 @@ namespace DBCorp
 		public void Add(ICoin coin)
 		{
 			this.coins.Add(coin);
+			this.coins.Sort(delegate (ICoin left, ICoin right)
+			{
+				if (left.Value < right.Value) return -1;
+				if (left.Value > right.Value) return +1;
+				return 0;
+			});
 		}
 
 
